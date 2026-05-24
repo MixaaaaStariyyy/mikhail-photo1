@@ -191,9 +191,9 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;justify
       <h2 class="about-name">Михаил<br><span>Старый</span></h2>
       <p class="about-text">Привет. Меня зовут Михаил, мне 22 года, я фотограф из Санкт-Петербурга.<br><br>Снимаю людей в студии, улицы города и атмосферу живых концертов. Для меня важен не просто кадр — а ощущение, которое в нём живёт. Работаю как с частными клиентами, так и с музыкантами и организаторами мероприятий.<br><br>Больше работ смотри в моей группе ВКонтакте.</p>
       <div class="about-stats">
-        <div class="stat"><span class="stat-n">5+</span><span class="stat-l">Года опыта</span></div>
+        <div class="stat"><span class="stat-n">3+</span><span class="stat-l">Года опыта</span></div>
         <div class="stat"><span class="stat-n">150+</span><span class="stat-l">Съёмок</span></div>
-        <div class="stat"><span class="stat-n">10+</span><span class="stat-l">Концертов</span></div>
+        <div class="stat"><span class="stat-n">50+</span><span class="stat-l">Концертов</span></div>
       </div>
       <a href="https://vk.com/mixa_staariy" target="_blank" class="vk-link">Группа ВКонтакте</a>
     </div>
@@ -249,10 +249,10 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;justify
     <div class="svc">
       <div class="svc-n">01</div>
       <h3 class="svc-t">Студийный портрет</h3>
-      <p class="svc-d">Индивидуальные портретные сессии с профессиональным светом. Сохранить, поделиться, полюбоваться.</p>
+      <p class="svc-d">Индивидуальные портретные сессии с профессиональным светом. Для личного архива, соцсетей или просто для себя.</p>
       <div class="svc-p">от 3 000 <small>₽</small></div>
       <ul class="svc-list">
-        <li>1 час съёмки</li>
+        <li>1–2 часа съёмки</li>
         <li>20+ готовых кадров</li>
         <li>Ретушь 5 фото</li>
         <li>Помощь с образом</li>
@@ -264,7 +264,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;justify
       <p class="svc-d">Живые портреты на улицах Петербурга. Естественный свет, настоящие эмоции, городская атмосфера.</p>
       <div class="svc-p">от 3 500 <small>₽</small></div>
       <ul class="svc-list">
-        <li>2 часа съёмки</li>
+        <li>2–3 часа съёмки</li>
         <li>30+ готовых кадров</li>
         <li>Цветокоррекция</li>
         <li>Выбор локации вместе</li>
@@ -277,7 +277,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;justify
       <div class="svc-p">от 5 000 <small>₽</small></div>
       <ul class="svc-list">
         <li>Полная съёмка события</li>
-        <li>25+ готовых кадров</li>
+        <li>50+ готовых кадров</li>
         <li>Обработка в стиле</li>
         <li>Срок — 3 дня</li>
       </ul>
@@ -309,14 +309,14 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;justify
       </div>
     </div>
     <div class="fu">
-      <form class="cform" id="cform" onsubmit="handleSend(event)">
-        <div class="frow"><label>Имя</label><input type="text" placeholder="Как тебя зовут?" required></div>
-        <div class="frow"><label>Email или Telegram</label><input type="text" placeholder="Как с тобой связаться?" required></div>
+      <form class="cform" id="cform" action="https://formspree.io/f/mwvznplq" method="POST" onsubmit="handleSend(event)">
+        <div class="frow"><label>Имя</label><input type="text" name="name" placeholder="Как тебя зовут?" required></div>
+        <div class="frow"><label>Email или Telegram</label><input type="text" name="contact" placeholder="Как с тобой связаться?" required></div>
         <div class="frow">
           <label>Тип съёмки</label>
-          <select><option value="">— Выбери</option><option>Студийный портрет</option><option>Уличная съёмка</option><option>Концерт / мероприятие</option><option>Другое</option></select>
+          <select name="type"><option value="">— Выбери</option><option>Студийный портрет</option><option>Уличная съёмка</option><option>Концерт / мероприятие</option><option>Другое</option></select>
         </div>
-        <div class="frow"><label>Сообщение</label><textarea placeholder="Дата, идея, пожелания..."></textarea></div>
+        <div class="frow"><label>Сообщение</label><textarea name="message" placeholder="Дата, идея, пожелания..."></textarea></div>
         <button type="submit" class="sbtn">Отправить запрос</button>
         <div class="fsuccess" id="fsuccess">Спасибо! Отвечу в течение 24 часов.</div>
       </form>
@@ -325,7 +325,7 @@ footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;justify
 </section>
 
 <footer>
-  <p class="fcopy">© 2026 Mikhail · Санкт-Петербург · Фотограф</p>
+  <p class="fcopy">© 2025 Mikhail · Санкт-Петербург · Фотограф</p>
   <div class="fsoc">
     <a href="https://t.me/Mixa_Stariy" target="_blank">Telegram</a>
     <a href="https://vk.com/mixa_staariy" target="_blank">ВКонтакте</a>
@@ -363,7 +363,7 @@ document.querySelectorAll('.mitem').forEach(c=>{
 function closeLb(){document.getElementById('lb').classList.remove('open');}
 document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLb();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
-function handleSend(e){e.preventDefault();document.getElementById('fsuccess').style.display='block';e.target.querySelector('.sbtn').style.opacity='.4';e.target.querySelector('.sbtn').disabled=true;}
+async function handleSend(e){e.preventDefault();const form=e.target,btn=form.querySelector('.sbtn');btn.style.opacity='.4';btn.disabled=true;try{const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(res.ok){document.getElementById('fsuccess').style.display='block';}else{btn.style.opacity='1';btn.disabled=false;alert('Ошибка отправки. Попробуй ещё раз.');}}catch(err){btn.style.opacity='1';btn.disabled=false;alert('Ошибка соединения.');}}
 </script>
 </body>
 </html>
