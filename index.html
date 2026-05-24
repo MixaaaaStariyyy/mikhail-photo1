@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Михаил — Фотограф · Санкт-Петербург</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0a0a0a;--white:#f5f5f0;--border:rgba(255,255,255,0.1)}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+.cursor{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,255,255,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
+body.cursor-grow .cursor-ring{width:56px;height:56px;border-color:rgba(255,255,255,.7)}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.5}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:28px 48px;background:linear-gradient(to bottom,rgba(10,10,10,.85),transparent)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:.06em;color:var(--white);text-decoration:none}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.55;transition:opacity .25s}
+.nav-links a:hover{opacity:1}
+
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:130px 48px 80px;position:relative;z-index:2}
+.hero-eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:20px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(68px,8vw,116px);font-weight:300;line-height:.9;letter-spacing:-.02em;margin-bottom:28px}
+.hero-title em{font-style:italic;opacity:.5}
+.hero-sub{font-size:12px;line-height:1.9;opacity:.55;max-width:300px;margin-bottom:40px}
+.hero-tags{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap}
+.tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--border);padding:8px 16px;opacity:.6}
+.hero-cta{display:inline-flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:8px;width:fit-content;transition:gap .3s,border-color .3s}
+.hero-cta:hover{gap:26px;border-color:var(--white)}
+.hero-cta::after{content:'→'}
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);opacity:.85}
+.scroll-hint{position:absolute;bottom:48px;left:48px;display:flex;align-items:center;gap:14px;font-size:9px;letter-spacing:.25em;text-transform:uppercase;opacity:.35;z-index:2}
+.scroll-line{width:36px;height:1px;background:var(--white);animation:pulse 2s ease-in-out infinite;transform-origin:left}
+@keyframes pulse{0%,100%{opacity:1;transform:scaleX(1)}50%{opacity:.3;transform:scaleX(.4)}}
+.hero-year{position:absolute;bottom:60px;right:48px;font-family:'Cormorant Garamond',serif;font-size:110px;font-weight:300;color:rgba(255,255,255,.035);line-height:1;pointer-events:none;z-index:1}
+
+section{padding:110px 48px}
+.section-label{font-size:9px;letter-spacing:.35em;text-transform:uppercase;opacity:.35;margin-bottom:60px;display:flex;align-items:center;gap:18px}
+.section-label::after{content:'';flex:0 0 36px;height:1px;background:rgba(255,255,255,.25)}
+
+.about{border-top:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start}
+.about-img-wrap{position:relative}
+.about-photo{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(100%);display:block}
+.about-badge{position:absolute;bottom:-16px;right:-16px;background:var(--black);border:1px solid var(--border);padding:20px;font-size:9px;letter-spacing:.15em;text-align:center;line-height:2;opacity:.7}
+.about-name{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:300;line-height:1;margin-bottom:28px}
+.about-name span{opacity:.4;font-style:italic}
+.about-text{font-size:13px;line-height:2.1;opacity:.6;margin-bottom:40px;max-width:500px}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);margin-bottom:36px}
+.stat{padding:20px;border-right:1px solid var(--border);text-align:center}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;display:block;margin-bottom:4px}
+.stat-l{font-size:8px;letter-spacing:.22em;text-transform:uppercase;opacity:.35}
+.vk-link{display:inline-flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:6px;transition:gap .3s,border-color .3s}
+.vk-link:hover{gap:22px;border-color:var(--white)}
+.vk-link::after{content:'→'}
+
+.portfolio{border-top:1px solid var(--border);background:#080808}
+.filters{display:flex;gap:4px;margin-bottom:48px;flex-wrap:wrap}
+.flt{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--white);background:transparent;border:1px solid var(--border);padding:10px 18px;cursor:none;transition:background .2s,border-color .2s,color .2s}
+.flt.active,.flt:hover{background:var(--white);color:var(--black);border-color:var(--white)}
+
+.mgrid{columns:3;column-gap:4px}
+.mitem{break-inside:avoid;margin-bottom:4px;position:relative;overflow:hidden;cursor:none}
+.mitem img{width:100%;height:auto;display:block;filter:grayscale(100%);transition:transform .55s ease,filter .3s}
+.mitem:hover img{transform:scale(1.04);filter:grayscale(50%)}
+.mitem .po{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:16px}
+.mitem:hover .po{opacity:1}
+.pm{font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.pm span{display:block;font-size:9px;opacity:.45;margin-top:2px}
+
+.services{border-top:1px solid var(--border)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border)}
+.svc{padding:44px 36px;border-right:1px solid var(--border);transition:background .3s}
+.svc:last-child{border-right:none}
+.svc:hover{background:rgba(255,255,255,.025)}
+.svc-n{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;opacity:.07;line-height:1;margin-bottom:20px}
+.svc-t{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:14px}
+.svc-d{font-size:11px;line-height:2;opacity:.45;margin-bottom:28px}
+.svc-p{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300}
+.svc-p small{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.15em;opacity:.45;margin-left:4px}
+.svc-list{margin-top:18px;list-style:none}
+.svc-list li{font-size:11px;opacity:.4;padding:5px 0 5px 14px;border-bottom:1px solid var(--border);position:relative}
+.svc-list li::before{content:'—';position:absolute;left:0;opacity:.4}
+
+.contact{border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.contact-hl{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5vw,76px);font-weight:300;line-height:1;margin-bottom:40px}
+.contact-hl em{font-style:italic;opacity:.4}
+.clinks{display:flex;flex-direction:column}
+.clink{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--border);color:var(--white);text-decoration:none;font-size:13px;opacity:.65;transition:opacity .2s,padding-left .3s}
+.clink:hover{opacity:1;padding-left:6px}
+.clink-type{font-size:8px;letter-spacing:.25em;text-transform:uppercase;opacity:.4;margin-bottom:2px}
+.clink-arr{opacity:.3;transition:opacity .2s}
+.clink:hover .clink-arr{opacity:1}
+.cform{display:flex;flex-direction:column}
+.frow{border-bottom:1px solid var(--border)}
+.frow label{font-size:8px;letter-spacing:.25em;text-transform:uppercase;opacity:.3;display:block;padding-top:18px}
+.frow input,.frow textarea,.frow select{width:100%;background:transparent;border:none;outline:none;color:var(--white);font-family:'Montserrat',sans-serif;font-weight:300;font-size:14px;padding:6px 0 18px;resize:none;-webkit-appearance:none}
+.frow select option{background:#0a0a0a}
+.frow textarea{min-height:72px}
+.sbtn{margin-top:36px;background:var(--white);color:var(--black);border:none;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.25em;text-transform:uppercase;padding:18px 44px;cursor:none;transition:background .2s,transform .2s;align-self:flex-start}
+.sbtn:hover{background:#ddd;transform:translateY(-2px)}
+.fsuccess{display:none;margin-top:20px;padding:20px;border:1px solid var(--border);font-size:12px;opacity:.55;line-height:1.8}
+
+footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;justify-content:space-between;align-items:center}
+.fcopy{font-size:9px;letter-spacing:.15em;opacity:.25}
+.fsoc{display:flex;gap:28px}
+.fsoc a{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.28;transition:opacity .2s}
+.fsoc a:hover{opacity:1}
+
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:500;display:none;align-items:center;justify-content:center}
+.lb.open{display:flex}
+.lb img{max-width:90vw;max-height:90vh;object-fit:contain}
+.lb-close{position:absolute;top:28px;right:44px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;opacity:.45;cursor:none;transition:opacity .2s}
+.lb-close:hover{opacity:1}
+
+.fu{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fu.vis{opacity:1;transform:none}
+
+@media(max-width:768px){
+  nav{padding:18px 24px}
+  .nav-links{display:none}
+  section{padding:72px 24px}
+  .hero{grid-template-columns:1fr}
+  .hero-right{height:70vw}
+  .hero-left{padding:100px 24px 56px}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr}
+  .svc{border-right:none;border-bottom:1px solid var(--border)}
+  .svc:last-child{border-bottom:none}
+  .mgrid{columns:2}
+  footer{flex-direction:column;gap:16px;text-align:center}
+  body{cursor:auto}
+  .cursor,.cursor-ring{display:none}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="lb" id="lb">
+  <div class="lb-close" onclick="closeLb()">Закрыть ×</div>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<nav>
+  <a href="#" class="nav-logo">Mikhail</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Портфолио</a></li>
+    <li><a href="#about">О себе</a></li>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#contact">Контакт</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Санкт-Петербург · Фотограф</p>
+    <h1 class="hero-title">Mikhail<br><em>Photo</em></h1>
+    <p class="hero-sub">Студийные портреты, уличная съёмка и концертная фотография. Ловлю свет и момент, которые не повторятся.</p>
+    <div class="hero-tags">
+      <span class="tag">Студия</span>
+      <span class="tag">Улица</span>
+      <span class="tag">Концерты</span>
+    </div>
+    <a href="#portfolio" class="hero-cta">Смотреть работы</a>
+    <div class="scroll-hint"><div class="scroll-line"></div>Прокрутить</div>
+  </div>
+  <div class="hero-right">
+    <img src="photos/hero.jpg" alt="Михаил фотограф">
+  </div>
+  <div class="hero-year">22</div>
+</section>
+
+<section class="about" id="about">
+  <p class="section-label">О себе</p>
+  <div class="about-grid fu">
+    <div class="about-img-wrap">
+      <img class="about-photo" src="photos/about.jpg" alt="Михаил">
+      <div class="about-badge">СПб<br>Фото<br>22 года</div>
+    </div>
+    <div>
+      <h2 class="about-name">Михаил<br><span>Старый</span></h2>
+      <p class="about-text">Привет. Меня зовут Михаил, мне 22 года, я фотограф из Санкт-Петербурга.<br><br>Снимаю людей в студии, улицы города и атмосферу живых концертов. Для меня важен не просто кадр — а ощущение, которое в нём живёт. Работаю как с частными клиентами, так и с музыкантами и организаторами мероприятий.<br><br>Больше работ смотри в моей группе ВКонтакте.</p>
+      <div class="about-stats">
+        <div class="stat"><span class="stat-n">3+</span><span class="stat-l">Года опыта</span></div>
+        <div class="stat"><span class="stat-n">150+</span><span class="stat-l">Съёмок</span></div>
+        <div class="stat"><span class="stat-n">50+</span><span class="stat-l">Концертов</span></div>
+      </div>
+      <a href="https://vk.com/mixa_staariy" target="_blank" class="vk-link">Группа ВКонтакте</a>
+    </div>
+  </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+  <p class="section-label">Портфолио</p>
+  <div class="filters">
+    <button class="flt active" data-f="all">Все работы</button>
+    <button class="flt" data-f="studio">Студия</button>
+    <button class="flt" data-f="street">Улица</button>
+    <button class="flt" data-f="concert">Концерты</button>
+  </div>
+  <div class="mgrid" id="mgrid">
+    <div class="mitem" data-cat="studio"><img src="photos/studio-05.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Свет</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-04.png" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Живой звук</span></div></div></div>
+    <div class="mitem" data-cat="street"><img src="photos/street-01.png" alt="" loading="lazy"><div class="po"><div class="pm">Улица<span>Закат</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-03.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Образ</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-01.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Сцена</span></div></div></div>
+    <div class="mitem" data-cat="street"><img src="photos/street-02.png" alt="" loading="lazy"><div class="po"><div class="pm">Улица<span>Портрет</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-09.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Характер</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-05.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Энергия</span></div></div></div>
+    <div class="mitem" data-cat="street"><img src="photos/street-06.png" alt="" loading="lazy"><div class="po"><div class="pm">Улица<span>Момент</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-10.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Контраст</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-08.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Атмосфера</span></div></div></div>
+    <div class="mitem" data-cat="street"><img src="photos/street-03.png" alt="" loading="lazy"><div class="po"><div class="pm">Улица<span>Петербург</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-06.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Настроение</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-09.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Группа</span></div></div></div>
+    <div class="mitem" data-cat="street"><img src="photos/street-04.png" alt="" loading="lazy"><div class="po"><div class="pm">Улица<span>История</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-07.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Взгляд</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-11.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Headbang</span></div></div></div>
+    <div class="mitem" data-cat="street"><img src="photos/street-05.png" alt="" loading="lazy"><div class="po"><div class="pm">Улица<span>Двое</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-01.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Портрет</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-12.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Голос</span></div></div></div>
+    <div class="mitem" data-cat="street"><img src="photos/street-07.png" alt="" loading="lazy"><div class="po"><div class="pm">Улица<span>СПб</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-02.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Детали</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-02.png" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Бас</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-08.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Свет</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-13.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Артист</span></div></div></div>
+    <div class="mitem" data-cat="studio"><img src="photos/studio-04.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Студия<span>Ч/б</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-03.png" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Микрофон</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/bts-01.jpg" alt="" loading="lazy"><div class="po"><div class="pm">За сценой<span>Работа</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-06.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Эмоция</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-07.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Сцена</span></div></div></div>
+    <div class="mitem" data-cat="concert"><img src="photos/concert-10.jpg" alt="" loading="lazy"><div class="po"><div class="pm">Концерт<span>Трио</span></div></div></div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <p class="section-label">Услуги и цены</p>
+  <div class="svc-grid fu">
+    <div class="svc">
+      <div class="svc-n">01</div>
+      <h3 class="svc-t">Студийный портрет</h3>
+      <p class="svc-d">Индивидуальные портретные сессии с профессиональным светом. Для личного архива, соцсетей или просто для себя.</p>
+      <div class="svc-p">от 3 000 <small>₽</small></div>
+      <ul class="svc-list">
+        <li>1–2 часа съёмки</li>
+        <li>20+ готовых кадров</li>
+        <li>Ретушь 5 фото</li>
+        <li>Помощь с образом</li>
+      </ul>
+    </div>
+    <div class="svc">
+      <div class="svc-n">02</div>
+      <h3 class="svc-t">Уличная съёмка</h3>
+      <p class="svc-d">Живые портреты на улицах Петербурга. Естественный свет, настоящие эмоции, городская атмосфера.</p>
+      <div class="svc-p">от 3 500 <small>₽</small></div>
+      <ul class="svc-list">
+        <li>2–3 часа съёмки</li>
+        <li>30+ готовых кадров</li>
+        <li>Цветокоррекция</li>
+        <li>Выбор локации вместе</li>
+      </ul>
+    </div>
+    <div class="svc">
+      <div class="svc-n">03</div>
+      <h3 class="svc-t">Концертная съёмка</h3>
+      <p class="svc-d">Фотосъёмка живых выступлений, фестивалей и клубных вечеров. Умею работать в темноте и ловить момент.</p>
+      <div class="svc-p">от 5 000 <small>₽</small></div>
+      <ul class="svc-list">
+        <li>Полная съёмка события</li>
+        <li>50+ готовых кадров</li>
+        <li>Обработка в стиле</li>
+        <li>Срок — 3 дня</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <p class="section-label">Контакт</p>
+  <div class="contact-grid">
+    <div class="fu">
+      <h2 class="contact-hl">Давай<br><em>поговорим</em></h2>
+      <div class="clinks">
+        <a href="mailto:misha116404@gmail.com" class="clink">
+          <div><div class="clink-type">Email</div>misha116404@gmail.com</div>
+          <span class="clink-arr">→</span>
+        </a>
+        <a href="https://t.me/Mixa_Stariy" target="_blank" class="clink">
+          <div><div class="clink-type">Telegram</div>@Mixa_Stariy</div>
+          <span class="clink-arr">→</span>
+        </a>
+        <a href="https://vk.com/mixa_staariy" target="_blank" class="clink">
+          <div><div class="clink-type">ВКонтакте</div>vk.com/mixa_staariy</div>
+          <span class="clink-arr">→</span>
+        </a>
+        <div class="clink" style="cursor:default">
+          <div><div class="clink-type">Город</div>Санкт-Петербург</div>
+        </div>
+      </div>
+    </div>
+    <div class="fu">
+      <form class="cform" id="cform" onsubmit="handleSend(event)">
+        <div class="frow"><label>Имя</label><input type="text" placeholder="Как тебя зовут?" required></div>
+        <div class="frow"><label>Email или Telegram</label><input type="text" placeholder="Как с тобой связаться?" required></div>
+        <div class="frow">
+          <label>Тип съёмки</label>
+          <select><option value="">— Выбери</option><option>Студийный портрет</option><option>Уличная съёмка</option><option>Концерт / мероприятие</option><option>Другое</option></select>
+        </div>
+        <div class="frow"><label>Сообщение</label><textarea placeholder="Дата, идея, пожелания..."></textarea></div>
+        <button type="submit" class="sbtn">Отправить запрос</button>
+        <div class="fsuccess" id="fsuccess">Спасибо! Отвечу в течение 24 часов.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="fcopy">© 2025 Mikhail · Санкт-Петербург · Фотограф</p>
+  <div class="fsoc">
+    <a href="https://t.me/Mixa_Stariy" target="_blank">Telegram</a>
+    <a href="https://vk.com/mixa_staariy" target="_blank">ВКонтакте</a>
+    <a href="mailto:misha116404@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function anim(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.mitem').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-grow'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-grow'));});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+document.querySelectorAll('.flt').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.flt').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.f;
+    document.querySelectorAll('.mitem').forEach(c=>{
+      const show=f==='all'||c.dataset.cat===f;
+      c.style.opacity=show?'1':'0.1';
+      c.style.transform=show?'':'scale(.97)';
+      c.style.transition='opacity .4s,transform .4s';
+    });
+  });
+});
+document.querySelectorAll('.mitem').forEach(c=>{
+  c.addEventListener('click',()=>{
+    const img=c.querySelector('img');
+    if(img){document.getElementById('lbImg').src=img.src;document.getElementById('lb').classList.add('open');}
+  });
+});
+function closeLb(){document.getElementById('lb').classList.remove('open');}
+document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLb();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+function handleSend(e){e.preventDefault();document.getElementById('fsuccess').style.display='block';e.target.querySelector('.sbtn').style.opacity='.4';e.target.querySelector('.sbtn').disabled=true;}
+</script>
+</body>
+</html>
